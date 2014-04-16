@@ -1,28 +1,40 @@
-﻿/* This Source Code Form is subject to the terms of the Mozilla Public
+/* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-#quickluanch-addonbar {
-  list-style-image: url("chrome://quicklaunch/skin/image/WINDOWS.png") ;
+#quickluanch-addonbar-item {
+  list-style-image: url("chrome://quicklaunch-os/skin/image/toolbarbutton.png") ;
 }
-#quickluanch-addonbar:-moz-lwtheme-brighttext {
-  list-style-image: url("chrome://quicklaunch/skin/image/WINDOWS-inverted.png") ;
+#quickluanch-addonbar-item[cui-areatype="menu-panel"],
+toolbarpaletteitem[place="palette"] > #quickluanch-addonbar-item {
+  list-style-image: url("chrome://quicklaunch-os/skin/image/toolbarbutton-32.png");
 }
-#TabsToolbar:last-child :-moz-any(#quickluanch-addonbar) {
-  list-style-image: url("chrome://quicklaunch/skin/image/WINDOWS-inverted.png") ;
+#quickluanch-addonbar-item[cui-areatype="toolbar"]:not([overflowedItem=true]):-moz-lwtheme-brighttext {
+  list-style-image: url("chrome://quicklaunch-os/skin/image/toolbarbutton-inverted.png") ;
+}
+/* should be all osx, but limit to 10.7+ for simplicity */
+@media (-moz-mac-lion-theme) {
+  #quickluanch-addonbar-item:hover:active:not([disabled="true"]):not([cui-areatype="menu-panel"]) {
+    list-style-image: url("chrome://quicklaunch-os/skin/image/toolbarbutton-pressed.png") ;
+  }
+  #quickluanch-addonbar-item[cui-areatype="toolbar"]:hover:active:not([disabled="true"]):not([overflowedItem=true]):-moz-lwtheme-brighttext {
+    list-style-image: url("chrome://quicklaunch-os/skin/image/toolbarbutton-inverted-pressed.png") ;
+  }
 }
 
-.quicklaunch-active {
-  list-style-image: url("chrome://quicklaunch/skin/image/toolbarbutton.png") !important;
+#PanelUI-MOA-quicklaunchView {
+  width: 192px;
+}
+.quicklaunch-addonbar > .toolbarbutton-icon,
+#PanelUI-MOA-quicklaunchView > toolbarbutton[image] > .toolbarbutton-icon {
+  height: 16px;
+  width: 16px;
+}
+.quicklaunch-addonbar:not([overflowedItem=true]) > .toolbarbutton-icon {
+  height: 24px;
+  width: 32px;
 }
 
-toolbar[iconsize="small"] .quicklaunch-active  {
-  list-style-image: url("chrome://quicklaunch/skin/image/toolbarbutton.png") !important;
-}
-
-.quicklaunch-active > dropmarker {
-  display: none !important;
-}
 #edit-header .dialogheader-title{
   margin-bottom:4px !important;
 }
@@ -63,15 +75,11 @@ toolbar[iconsize="small"] .quicklaunch-active  {
 .checkbox-label-box{
   border:0px;
 }
-.quicklaunch-addonbar .toolbarbutton-icon{
-  width: 16px !important;
-  height:16px !important;
-}
 #buttonconfigaddonbar {
- -moz-image-region: rect(0px, 24px,  24px, 0px);
+  -moz-image-region: rect(0px, 24px,  24px, 0px);
 }
 #buttoncustomizequicklaunch {
-   -moz-image-region: rect(0px, 48px,  24px, 24px)
+  -moz-image-region: rect(0px, 48px,  24px, 24px)
 }
 
 
@@ -102,24 +110,24 @@ toolbar[iconsize="small"] .quicklaunch-active  {
 }
 
 #quickLaunchManagerWindow #quicklaunchbox #quicklaunchbuttonbox button[checked="true"] {
-    background-color: #C1D2EE !important;
-    border: none !important;
+  background-color: #C1D2EE !important;
+  border: none !important;
 }
 
 #quickLaunchManagerWindow #quicklaunchbox #quicklaunchbuttonbox .button-box{
-    background: none !important;
-    padding: 3px 3px 1px 3px !important;
+  background: none !important;
+  padding: 3px 3px 1px 3px !important;
 }
 
 /*lets fix some themes, mainly charamel 1.2 */
 #quickLaunchManagerWindow #quicklaunchbox #quicklaunchbuttonbox button .button-endcap{
-background: none !important;
-padding-right: 0px !important;
-height: auto !important;
--moz-box-pack: start !important;
--moz-box-align: stretch !important;
+  background: none !important;
+  padding-right: 0px !important;
+  height: auto !important;
+  -moz-box-pack: start !important;
+  -moz-box-align: stretch !important;
 }
 
 #quickLaunchManagerWindow #quicklaunchbox #quicklaunchbuttonbox button .button-body{
-background: none !important;
+  background: none !important;
 }

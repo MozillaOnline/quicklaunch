@@ -8,31 +8,24 @@
 <overlay id="quicklaunch"
   xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-  <toolbarpalette id="BrowserToolbarPalette">
-    <toolbaritem id="quickluanch-addonbar-item" label="&quicklaunch-label;">
-      <hox id="quickluanch-addonbar-hbox"/>
-      <toolbarbutton id="quickluanch-addonbar"
-                     class="toolbarbutton-1 chromeclass-toolbar-additional"
-                     tooltiptext="&quicklaunch-toolTips;"
-                     oncommand="ceQuickLaunch.popupMenu();" />
-    </toolbaritem>
-  </toolbarpalette>
-
-  <popupset>
-    <menupopup id="shortcuts-statusbar-menupopup" onpopupshown="ceQuickLaunch.onQuicklaunchPopupShown(event);">
-      <menuitem label="&quicklaunch-notepad;" class="menuitem-iconic" image="chrome://quicklaunch/skin/image/notepad.png" oncommand="ceQuickLaunch.runProcInWinD('notepad.exe',['']);"/>
-      <menuitem label="&quicklaunch-mspaint;" class="menuitem-iconic" image="chrome://quicklaunch/skin/image/mspaint.png" oncommand="ceQuickLaunch.runProcInWinD('system32\\mspaint.exe',['']);"/>
-      <menuitem label="&quicklaunch-calc;" class="menuitem-iconic" image="chrome://quicklaunch/skin/image/calc.png" oncommand="ceQuickLaunch.runProcInWinD('system32\\calc.exe',['']);"/>
-      <menuitem label="&quicklaunch-myComputer;" class="menuitem-iconic" image="chrome://quicklaunch/skin/image/explorer.png" oncommand="ceQuickLaunch.runProcInWinD('explorer.exe',['::{20d04fe0-3aea-1069-a2d8-08002b30309d}']);"/>
-      <menuitem label="&quicklaunch-switchProfile;" class="menuitem-iconic" image="chrome://quicklaunch/skin/image/switchprofile.png" oncommand="ceQuickLaunch.toProfileManager();"/>
+  <panelmultiview id="PanelUI-multiView" mainViewId="PanelUI-mainView">
+    <panelview id="PanelUI-MOA-quicklaunchView" flex="1">
+      <label value="&quicklaunch-label;" class="panel-subview-header"/>
+      <toolbarbutton label="&quicklaunch-notepad;" class="subviewbutton" image="chrome://quicklaunch/skin/image/notepad.png" oncommand="ceQuickLaunch.runProcInWinD('notepad.exe',['']);"/>
+      <toolbarbutton label="&quicklaunch-mspaint;" class="subviewbutton" image="chrome://quicklaunch/skin/image/mspaint.png" oncommand="ceQuickLaunch.runProcInWinD('system32\\mspaint.exe',['']);"/>
+      <toolbarbutton label="&quicklaunch-calc;" class="subviewbutton" image="chrome://quicklaunch/skin/image/calc.png" oncommand="ceQuickLaunch.runProcInWinD('system32\\calc.exe',['']);"/>
+      <toolbarbutton label="&quicklaunch-myComputer;" class="subviewbutton" image="chrome://quicklaunch/skin/image/myComputer.png"
+oncommand="ceQuickLaunch.runProcInWinD('explorer.exe',['::{20d04fe0-3aea-1069-a2d8-08002b30309d}']);"/>
+      <toolbarbutton label="&quicklaunch-switchProfile;" class="subviewbutton" image="chrome://quicklaunch/skin/image/switchProfile.png" oncommand="ceQuickLaunch.toProfileManager();"/>
       <menuseparator/>
       <menuseparator id="separator-manage" hidden="true" />
-      <menuitem label="&quicklaunch-manageQuickLaunch;" class="menuitem-iconic" image="chrome://quicklaunch/skin/image/customizmyql.png" oncommand="ceQuickLaunch.manageQuickLaunch();"/>
-    </menupopup>
+      <toolbarbutton label="&quicklaunch-manageQuickLaunch;" class="subviewbutton" image="chrome://quicklaunch/skin/image/customizmyql.png" oncommand="ceQuickLaunch.manageQuickLaunch();"/>
+    </panelview>
+  </panelmultiview>
 
-  </popupset>
-  <script type="application/x-javascript" src="chrome://quicklaunch/content/quicklaunch.js" ></script>
   <stringbundleset>
     <stringbundle id="quicklaunchStrings" src="chrome://quicklaunch/locale/quicklaunch.properties"/>
   </stringbundleset>
+
+  <script type="application/x-javascript" src="chrome://quicklaunch/content/quicklaunch.js" ></script>
 </overlay>

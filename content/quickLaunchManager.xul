@@ -48,11 +48,10 @@
         </hbox>
         <hbox class="quicklaunch-add-hbox">
           <checkbox id="default_calc" label="&quicklaunch-calc;" flex="1" class="quicklaunch-checkbox" src="chrome://quicklaunch/skin/image/calc.png"/>
-          <checkbox id="default_myComputer" label="&quicklaunch-myComputer;" flex="1" class="quicklaunch-checkbox" src="chrome://quicklaunch/skin/image/explorer.png"/>
+          <checkbox id="default_myComputer" label="&quicklaunch-myComputer;" flex="1" class="quicklaunch-checkbox" src="chrome://quicklaunch/skin/image/myComputer.png"/>
         </hbox>
         <hbox class="quicklaunch-add-hbox">
-          <!--checkbox id="default_paintWebpage" label="&quicklaunch-paintWebpage;" flex="1" class="quicklaunch-checkbox" src="chrome://quicklaunch/skin/image/screencut.png"/-->
-          <checkbox id="default_switchProfile" label="&quicklaunch-switchProfile;" flex="1" class="quicklaunch-checkbox" src="chrome://quicklaunch/skin/image/switchprofile.png"/>
+          <checkbox id="default_switchProfile" label="&quicklaunch-switchProfile;" flex="1" class="quicklaunch-checkbox" src="chrome://quicklaunch/skin/image/switchProfile.png"/>
         </hbox>
       </vbox>
     </tabpanel>
