@@ -27,9 +27,9 @@
 <!ENTITY quickLaunchEdit.name "Name for your EasyAccess">
 <!ENTITY quickLaunchEdit.path "File Path for your EasyAccess">
 <!ENTITY quickLaunchEdit.arguments "Arguments for your EasyAccess">
-<!ENTITY quickLaunchEdit.configaddonbar "add to addonbar">
+<!ENTITY quickLaunchEdit.configaddonbar "add to toolbar">
 <!ENTITY quickLaunchEdit.customizequicklaunch "customize your quicklaunch">
-<!ENTITY quickLaunchEdit.addtoaddonbar "add to addonbar">
+<!ENTITY quickLaunchEdit.addtoaddonbar "add to toolbar">
 <!ENTITY quickLaunchEdit.browse "browse">
-<!ENTITY quickLaunchEdit.configaddonbar_label "checked quicklaunches will be shown on addonbar">
+<!ENTITY quickLaunchEdit.configaddonbar_label "checked quicklaunches will be shown on toolbar">
 <!ENTITY quickLaunchEdit.customizequicklaunch_label "add, edit and delete your customized quicklaunches">

@@ -28,8 +28,8 @@
 <!ENTITY quickLaunchEdit.path "個人化Firefox 捷徑的路徑">
 <!ENTITY quickLaunchEdit.arguments "個人化Firefox 捷徑的參數">
 <!ENTITY quickLaunchEdit.browse "瀏覽">
-<!ENTITY quickLaunchEdit.configaddonbar "附加元件列介面">
+<!ENTITY quickLaunchEdit.configaddonbar "工具列介面">
 <!ENTITY quickLaunchEdit.customizequicklaunch "個人化捷徑">
-<!ENTITY quickLaunchEdit.addtoaddonbar "新增到附加元件列">
-<!ENTITY quickLaunchEdit.configaddonbar_label "選擇的 Firefox 捷徑會在瀏覽器視窗下方的狀態列上顯示">
+<!ENTITY quickLaunchEdit.addtoaddonbar "新增到工具列">
+<!ENTITY quickLaunchEdit.configaddonbar_label "選擇的 Firefox 捷徑會在工具列上顯示">
 <!ENTITY quickLaunchEdit.customizequicklaunch_label "新增、修改或刪除您個人化的 Firefox 捷徑">
