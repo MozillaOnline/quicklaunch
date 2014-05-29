@@ -38,15 +38,35 @@
 
  ***** END LICENSE BLOCK ***** -->
 
+<!ENTITY            brandShortName         "Firefox">
+
 <!ENTITY            windowTitle.label    "選擇使用者設定檔(Profile)">
+
+<!ENTITY            start.label            "啟動 &brandShortName;">
+<!ENTITY            exit.label             "結束">
+
+<!ENTITY            newButton.label        "建立設定檔…">
+<!ENTITY            newButton.accesskey    "C">
+<!ENTITY            renameButton.label     "設定檔更名…">
+<!ENTITY            renameButton.accesskey "R">
+<!ENTITY            deleteButton.label     "刪除設定檔…">
+<!ENTITY            deleteButton.accesskey "D">
+
+<!ENTITY            offlineState.label    "離線模式">
+<!ENTITY            offlineState.accesskey "o">
+
+<!ENTITY            autoSelect.label       "啟動時不詢問">
+<!ENTITY            autoSelect.accesskey   "s">
+
 <!ENTITY            profileManager.title "&brandShortName; 使用者設定檔(Profile)管理列表">
 
 <!ENTITY            manage.label     "使用者設定檔精靈...">
 <!ENTITY            manage.accesskey "M">
-<!ENTITY            select.label     "確定">
 
+<!ENTITY            select.label     "確定">
 <!ENTITY            availableProfiles.label "使用者設定檔">
 
 <!ENTITY            introStart.label         "偏好設定中儲存了訊息、設定和其他個人化資訊。請編輯要使用的偏好設定，並點擊 &select.label; 按鈕，立即開始使用。">
 <!ENTITY            introSwitch.label        "使用者設定檔(Profile)中儲存了訊息、設定和其他個人化資訊，要切換到其他使用者設定，請選擇該設定檔，並點擊&select.label;按鈕，立即切換到該使用者設定檔。">
+
 <!ENTITY            profileManagerText.label "&brandShortName; 把您的設定、偏好等各種資料儲存於您的使用者設定檔(Profile)中。">

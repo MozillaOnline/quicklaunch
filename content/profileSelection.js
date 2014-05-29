@@ -2,9 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-var gMozAppsBundle;
-var gProfileBundle;
-var gBrandBundle;
+var gBundle;
 var gProfileService;
 var gPromptService = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
                                .getService(Components.interfaces.nsIPromptService);
@@ -13,9 +11,7 @@ var gDialogParams = window.arguments[0]
                           .QueryInterface(Components.interfaces.nsIDialogParamBlock);
 
 function StartUp() {
-  gMozAppsBundle = document.getElementById("bundle_mozapps");
-  gProfileBundle = document.getElementById("bundle_profile");
-  gBrandBundle = document.getElementById("bundle_brand");
+  gBundle = document.getElementById("bundle_profile");
   if (gDialogParams.objects) {
     document.documentElement.getButton("accept").setAttribute("label",
       document.documentElement.getAttribute("buttonlabelstart"));
@@ -108,8 +104,8 @@ function AcceptDialog() {
     }
     profileLock.unlock();
   } catch (e) {
-    var brandName = gBrandBundle.getString("brandShortName");
-    var message = gProfileBundle.getFormattedString("dirLocked",
+    var brandName = gBundle.getString("brandShortName");
+    var message = gBundle.getFormattedString("dirLocked",
                                                     [brandName, selected.profile.name]);
     gPromptService.alert(window, null, message);
     return false;
@@ -157,29 +153,29 @@ function RenameProfile() {
   var selected = profileTree.view.getItemAtIndex(profileTree.currentIndex);
   var profileName = selected.profile.name;
   var newName = {value: profileName};
-  var dialogTitle = gMozAppsBundle.getString("renameProfileTitle");
-  var msg = gMozAppsBundle.getFormattedString("renameProfilePrompt", [profileName]);
+  var dialogTitle = gBundle.getString("renameProfileTitle");
+  var msg = gBundle.getFormattedString("renameProfilePrompt", [profileName]);
   if (gPromptService.prompt(window, dialogTitle, msg, newName, null, {value: 0}) &&
       newName.value != profileName) {
     if (!/\S/.test(newName.value)) {
       gPromptService.alert(window,
-                           gMozAppsBundle.getString("profileNameInvalidTitle"),
-                           gMozAppsBundle.getString("profileNameEmpty"));
+                           gBundle.getString("profileNameInvalidTitle"),
+                           gBundle.getString("profileNameEmpty"));
       return false;
     }
 
     if (/([\\*:?<>|\/\"])/.test(newName.value)) {
       gPromptService.alert(window,
-                           gMozAppsBundle.getString("profileNameInvalidTitle"),
-                           gMozAppsBundle.getFormattedString("invalidChar", [RegExp.$1]));
+                           gBundle.getString("profileNameInvalidTitle"),
+                           gBundle.getFormattedString("invalidChar", [RegExp.$1]));
       return false;
     }
 
     try {
       gProfileService.getProfileByName(newName.value);
       gPromptService.alert(window,
-                           gMozAppsBundle.getString("profileExistsTitle"),
-                           gMozAppsBundle.getString("profileExists"));
+                           gBundle.getString("profileExistsTitle"),
+                           gBundle.getString("profileExists"));
       return false;
     } catch (e) { }
 
@@ -199,24 +195,24 @@ function ConfirmDelete() {
 
   try {
     var profileLock = selected.profile.lock({});
-    var dialogTitle = gMozAppsBundle.getString("deleteTitle");
+    var dialogTitle = gBundle.getString("deleteTitle");
     var dialogText;
 
     var path = selected.profile.rootDir.path;
-    dialogText = gProfileBundle.getFormattedString("deleteProfile", [path]);
+    dialogText = gBundle.getFormattedString("deleteProfile", [path]);
     var buttonPressed = gPromptService.confirmEx(window, dialogTitle, dialogText,
         (gPromptService.BUTTON_TITLE_IS_STRING * gPromptService.BUTTON_POS_0) +
         (gPromptService.BUTTON_TITLE_CANCEL * gPromptService.BUTTON_POS_1) +
         (gPromptService.BUTTON_TITLE_IS_STRING * gPromptService.BUTTON_POS_2),
-        gMozAppsBundle.getString("dontDeleteFiles"), null,
-        gMozAppsBundle.getString("deleteFiles"), null, {value: 0});
+        gBundle.getString("dontDeleteFiles"), null,
+        gBundle.getString("deleteFiles"), null, {value: 0});
     profileLock.unlock();
     if (buttonPressed != 1)
       DeleteProfile(buttonPressed == 2);
   } catch (e) {
-    var dialogTitle = gProfileBundle.getString("deleteTitle");
-    var brandName = gBrandBundle.getString("brandShortName");
-    var dialogText = gProfileBundle.getFormattedString("deleteLocked",
+    var dialogTitle = gBundle.getString("deleteTitle");
+    var brandName = gBundle.getString("brandShortName");
+    var dialogText = gBundle.getFormattedString("deleteLocked",
                                                        [brandName, selected.profile.name]);
     gPromptService.alert(window, dialogTitle, dialogText);
   }
@@ -253,7 +249,7 @@ function SwitchProfileManagerMode() {
 
   if (gProfileManagerMode == "selection") {
     prattleIndex = 1;
-    captionLine = gProfileBundle.getString("manageTitle");
+    captionLine = gBundle.getString("manageTitle");
 
     document.getElementById("profiles").focus();
 
@@ -262,7 +258,7 @@ function SwitchProfileManagerMode() {
     gProfileManagerMode = "manager";
   } else {
     prattleIndex = 0;
-    captionLine = gProfileBundle.getString("selectTitle");
+    captionLine = gBundle.getString("selectTitle");
     gProfileManagerMode = "selection";
   }
 

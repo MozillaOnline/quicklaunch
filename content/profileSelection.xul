@@ -8,12 +8,8 @@
 <?xml-stylesheet href="chrome://communicator/skin/profile/profile.css" type="text/css"?>
 
 <!DOCTYPE dialog [
-<!ENTITY % brandDTD SYSTEM "chrome://branding/locale/brand.dtd">
-%brandDTD;
 <!ENTITY % profileDTD SYSTEM "chrome://quicklaunch/locale/profileSelection.dtd">
 %profileDTD;
-<!ENTITY % mozappsDTD SYSTEM "chrome://mozapps/locale/profile/profileSelection.dtd">
-%mozappsDTD;
 ]>
 
 <dialog id="profileWindow"
@@ -32,12 +28,8 @@
         ondialogextra2="SwitchProfileManagerMode();"
         onload="StartUp();">
 
-  <stringbundle id="bundle_mozapps"
-                src="chrome://mozapps/locale/profile/profileSelection.properties"/>
   <stringbundle id="bundle_profile"
                 src="chrome://quicklaunch/locale/profileSelection.properties"/>
-  <stringbundle id="bundle_brand"
-                src="chrome://branding/locale/brand.properties"/>
 
   <script type="application/x-javascript" src="chrome://quicklaunch/content/profileSelection.js"/>
   <script type="application/x-javascript" src="chrome://mozapps/content/profile/createProfileWizard.js"/>
@@ -75,7 +67,7 @@
         </treecols>
         <treechildren ondblclick="HandleClickEvent(event);"/>
       </tree>
-      <checkbox id="offlineState" label="&offlineState.label;" accesskey="&offlineState.accesskey;" hidden="true"/> 
+      <checkbox id="offlineState" label="&offlineState.label;" accesskey="&offlineState.accesskey;" hidden="true"/>
       <checkbox id="autoSelect" label="&autoSelect.label;" accesskey="&autoSelect.accesskey;"/>
     </vbox>
   </hbox>
