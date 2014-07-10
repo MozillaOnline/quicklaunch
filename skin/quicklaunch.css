@@ -47,11 +47,11 @@ toolbarpaletteitem[place="palette"] > #quickluanch-addonbar-item {
   }
 }
 
-#PanelUI-MOA-quicklaunchView {
+#quicklaunch-PanelUI-View {
   width: 192px;
 }
 .quicklaunch-addonbar > .toolbarbutton-icon,
-#PanelUI-MOA-quicklaunchView > toolbarbutton[image] > .toolbarbutton-icon {
+#quicklaunch-PanelUI-View > toolbarbutton[image] > .toolbarbutton-icon {
   height: 16px;
   width: 16px;
 }

@@ -9,7 +9,7 @@
   xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
   <panelmultiview id="PanelUI-multiView" mainViewId="PanelUI-mainView">
-    <panelview id="PanelUI-MOA-quicklaunchView" flex="1">
+    <panelview id="quicklaunch-PanelUI-View" flex="1">
       <label value="&quicklaunch-label;" class="panel-subview-header"/>
       <toolbarbutton label="&quicklaunch-switchProfile;" class="subviewbutton" image="chrome://quicklaunch/skin/image/switchProfile.png" oncommand="ceQuickLaunch.toProfileManager();"/>
     </panelview>

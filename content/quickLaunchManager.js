@@ -167,9 +167,14 @@ function addQuickLaunch() {
                   .getService(Components.interfaces.mozIStorageService);
     var mDBConn = storageService.openDatabase(file); // Will also create the file if it does not exist
 
-    mDBConn.executeSimpleSQL("INSERT INTO myquicklaunch (name,path,args) VALUES('"+params.out.name+"','"+params.out.path+"','"+params.out.args+"')");
-    var statement = mDBConn.createStatement("SELECT id,name,path FROM myquicklaunch WHERE name == ?1" );
-    statement.bindUTF8StringParameter(0, params.out.name);
+    var statement = mDBConn.createStatement("INSERT INTO myquicklaunch (name,path,args) VALUES(:name,:path,:args)");
+    statement.params.name = params.out.name;
+    statement.params.path = params.out.path;
+    statement.params.args = params.out.args;
+    statement.execute();
+
+    statement = mDBConn.createStatement("SELECT id,name,path FROM myquicklaunch WHERE name == :name" );
+    statement.params.name = params.out.name;
     while(statement.executeStep()) {
       var id = statement.getInt32(0);
       if (params.out.checked) {
@@ -262,14 +267,13 @@ function editQuickLaunch() {
                                    .getService(Components.interfaces.mozIStorageService);
     var mDBConn = storageService.openDatabase(file); // Will also create the file if it does not exist
 
-    mDBConn.executeSimpleSQL("UPDATE myquicklaunch set name='" +
-                             params.out.name +
-                             "',path='" +
-                             params.out.path +
-                             "',args='" +
-                             params.out.args +
-                             "' where name='" +
-                             params.inn.name + "'");
+    var statement = mDBConn.createStatement("UPDATE myquicklaunch set name=:name,path=:path,args=:args where name=:inn_name");
+    statement.params.name = params.out.name;
+    statement.params.path = params.out.path;
+    statement.params.args = params.out.args;
+    statement.params.inn_name = params.inn.name;
+    statement.execute();
+
     if (params.out.checked) {
       addPref(id);
     } else {
@@ -296,7 +300,11 @@ function deleteQuickLaunch() {
   var storageService = Components.classes["@mozilla.org/storage/service;1"]
                                  .getService(Components.interfaces.mozIStorageService);
   var mDBConn = storageService.openDatabase(file); // Will also create the file if it does not exist
-  mDBConn.executeSimpleSQL("DELETE FROM myquicklaunch WHERE name='" + name + "'");
+
+  var statement = mDBConn.createStatement("DELETE FROM myquicklaunch WHERE name=:name");
+  statement.params.name = name;
+  statement.execute();
+
   document.getElementById("quicklaunchs").builder.rebuild();
   delPref(id);
   var delCheckbox = document.getElementById("customized_"+id);

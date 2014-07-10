@@ -102,35 +102,6 @@ var ceQuickLaunch = {
     return canvas.toDataURL("image/png", "");
   },
 
-  openPageWithMspaint: function() {
-    var data = this.printScreen();
-    //create Temp File
-    let currProfD = Services.dirsvc.get("ProfD", Ci.nsIFile);
-    let profileDir = currProfD.path;
-
-    // Show the profile directory.
-    let nsLocalFile = Components.Constructor("@mozilla.org/file/local;1",
-                                             "nsILocalFile", "initWithPath");
-
-    file.append("temp.png");
-    file.createUnique(Components.interfaces.nsIFile.NORMAL_FILE_TYPE, 0666);
-    // do whatever you need to the created file
-
-    var io = Components.classes["@mozilla.org/network/io-service;1"]
-                       .getService(Components.interfaces.nsIIOService);
-    var source = io.newURI(data, "UTF8", null);
-    var target = io.newFileURI(file);
-    // prepare to save the canvas data
-    var persist = Components.classes["@mozilla.org/embedding/browser/nsWebBrowserPersist;1"]
-                            .createInstance(Components.interfaces.nsIWebBrowserPersist);
-
-    persist.persistFlags = Components.interfaces.nsIWebBrowserPersist.PERSIST_FLAGS_REPLACE_EXISTING_FILES;
-    persist.persistFlags |= Components.interfaces.nsIWebBrowserPersist.PERSIST_FLAGS_AUTODETECT_APPLY_CONVERSION;
-
-    persist.saveURI(source, null, null, null, null, file, null);
-    this.runProcInWinD('system32\\mspaint.exe', [file.path]);
-  },
-
   toProfileManager: function() {
     const wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
                          .getService(Components.interfaces.nsIWindowMediator);
@@ -218,7 +189,7 @@ var ceQuickLaunch = {
       CustomizableUI.createWidget(
         { id : id,
           type : "view",
-          viewId : "PanelUI-MOA-quicklaunchView",
+          viewId : "quicklaunch-PanelUI-View",
           defaultArea : area,
           label : strbundle.getString("quicklaunch-label"),
           tooltiptext : strbundle.getString("quicklaunch-label"),
@@ -306,8 +277,8 @@ var ceQuickLaunch = {
       var storageService = Cc["@mozilla.org/storage/service;1"]
                    .getService(Ci.mozIStorageService);
       var mDBConn = storageService.openDatabase(file);
-      var statement = mDBConn.createStatement("SELECT id,name,path,args FROM myquicklaunch WHERE id=?1");
-      statement.bindInt32Parameter(0, buttonID);
+      var statement = mDBConn.createStatement("SELECT id,name,path,args FROM myquicklaunch WHERE id=:id");
+      statement.params.id = buttonID;
       try {
         while(statement.executeStep()) {
           id = statement.getInt32(0);
@@ -387,7 +358,7 @@ var ceQuickLaunch = {
                                    .getService(Components.interfaces.mozIStorageService);
     var mDBConn = storageService.openDatabase(file);
 
-    var popup = doc.getElementById('PanelUI-MOA-quicklaunchView');
+    var popup = doc.getElementById('quicklaunch-PanelUI-View');
     var items = popup.querySelectorAll('toolbarbutton.user-customized-item');
     for (let i = 0; i < items.length; i++) {
       popup.removeChild(items[i]);
@@ -410,12 +381,12 @@ var ceQuickLaunch = {
         toolbarButton.setAttribute('commandArgs', args);
         toolbarButton.setAttribute('oncommand', 'ceQuickLaunch.runProc(this.getAttribute(\'commandPath\'),this.getAttribute(\'commandArgs\'));');
         try {
-          popup.insertBefore(toolbarButton, doc.getElementById('separator-manage'));
+          popup.insertBefore(toolbarButton, doc.getElementById('quicklaunch-separator-manage'));
         } catch(e) {
           continue;
         }
       }
-      doc.getElementById('separator-manage').hidden = !hasItem;
+      doc.getElementById('quicklaunch-separator-manage').hidden = !hasItem;
     } catch(e) {
       Components.utils.reportError("Error occurs when rebuild menu: " +
                                    mDBConn.lastErrorString);
