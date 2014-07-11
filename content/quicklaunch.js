@@ -334,7 +334,9 @@ var ceQuickLaunch = {
                 aNode.setAttribute("image", "moz-icon:file:///" + path);
               },
               onCommand: function(aEvt) {
-                quicklaunch_runProc(path, args);
+                var doc = aEvt.target && aEvt.target.ownerDocument;
+                var win = doc && doc.defaultView;
+                win.ceQuickLaunch.runProc(path, args);
               }
             });
         }
