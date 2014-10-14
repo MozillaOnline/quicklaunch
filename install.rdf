@@ -13,7 +13,7 @@
     <em:description>One touch access to frequently used functions.</em:description>
     <em:creator>Mozilla Online</em:creator>
     <em:homepageURL>http://www.firefox.com.cn/</em:homepageURL>
-    <em:iconURL>chrome://quicklaunch/skin/image/quicklaunch.png</em:iconURL>
+    <em:iconURL>chrome://quicklaunch-os/locale/image/quicklaunch.png</em:iconURL>
     <em:targetApplication>
       <Description>
         <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>

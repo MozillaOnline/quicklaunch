@@ -3,42 +3,42 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 #quickluanch-addonbar-item {
-  list-style-image: url("chrome://quicklaunch-os/skin/image/toolbarbutton.png") ;
+  list-style-image: url("chrome://quicklaunch-os/locale/image/toolbarbutton.png");
 }
 #quickluanch-addonbar-item[cui-areatype="menu-panel"],
 toolbarpaletteitem[place="palette"] > #quickluanch-addonbar-item {
-  list-style-image: url("chrome://quicklaunch-os/skin/image/toolbarbutton-32.png");
+  list-style-image: url("chrome://quicklaunch-os/locale/image/toolbarbutton-32.png");
 }
 #quickluanch-addonbar-item[cui-areatype="toolbar"]:not([overflowedItem=true]):-moz-lwtheme-brighttext {
-  list-style-image: url("chrome://quicklaunch-os/skin/image/toolbarbutton-inverted.png") ;
+  list-style-image: url("chrome://quicklaunch-os/locale/image/toolbarbutton-inverted.png");
 }
 /* should be all osx, but limit to 10.7+ for simplicity */
 @media (-moz-mac-lion-theme) {
   #quickluanch-addonbar-item:hover:active:not([disabled="true"]):not([cui-areatype="menu-panel"]) {
-    list-style-image: url("chrome://quicklaunch-os/skin/image/toolbarbutton-active.png") ;
+    list-style-image: url("chrome://quicklaunch-os/locale/image/toolbarbutton-active.png");
   }
   #quickluanch-addonbar-item[cui-areatype="toolbar"]:hover:active:not([disabled="true"]):not([overflowedItem=true]):-moz-lwtheme-brighttext {
-    list-style-image: url("chrome://quicklaunch-os/skin/image/toolbarbutton-inverted-active.png") ;
+    list-style-image: url("chrome://quicklaunch-os/locale/image/toolbarbutton-inverted-active.png");
   }
 }
 
 @media (-moz-mac-lion-theme) and (min-resolution: 2dppx) {
   #quickluanch-addonbar-item {
-    list-style-image: url("chrome://quicklaunch-os/skin/image/toolbarbutton@2x.png") ;
+    list-style-image: url("chrome://quicklaunch-os/locale/image/toolbarbutton@2x.png");
   }
   #quickluanch-addonbar-item[cui-areatype="menu-panel"],
   toolbarpaletteitem[place="palette"] > #quickluanch-addonbar-item {
-    list-style-image: url("chrome://quicklaunch-os/skin/image/toolbarbutton-32@2x.png");
+    list-style-image: url("chrome://quicklaunch-os/locale/image/toolbarbutton-32@2x.png");
   }
   #quickluanch-addonbar-item[cui-areatype="toolbar"]:not([overflowedItem=true]):-moz-lwtheme-brighttext {
-    list-style-image: url("chrome://quicklaunch-os/skin/image/toolbarbutton-inverted@2x.png");
+    list-style-image: url("chrome://quicklaunch-os/locale/image/toolbarbutton-inverted@2x.png");
   }
 
   #quickluanch-addonbar-item:hover:active:not([disabled="true"]):not([cui-areatype="menu-panel"]) {
-    list-style-image: url("chrome://quicklaunch-os/skin/image/toolbarbutton-active@2x.png") ;
+    list-style-image: url("chrome://quicklaunch-os/locale/image/toolbarbutton-active@2x.png");
   }
   #quickluanch-addonbar-item[cui-areatype="toolbar"]:hover:active:not([disabled="true"]):not([overflowedItem=true]):-moz-lwtheme-brighttext {
-    list-style-image: url("chrome://quicklaunch-os/skin/image/toolbarbutton-inverted-active@2x.png") ;
+    list-style-image: url("chrome://quicklaunch-os/locale/image/toolbarbutton-inverted-active@2x.png");
   }
 
   #quickluanch-addonbar-item > .toolbarbutton-icon,

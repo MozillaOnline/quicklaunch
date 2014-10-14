@@ -2,9 +2,6 @@ content  quicklaunch    content/  contentaccessible=yes
 resource quicklaunch    modules/
 
 skin	quicklaunch	classic/1.0	skin/
-skin	quicklaunch-os	classic/1.0	skin/
-skin	quicklaunch-os	classic/1.0	skin/linux/  os=Linux
-skin	quicklaunch-os	classic/1.0	skin/mac/  os=Darwin
 
 style 	chrome://global/content/customizeToolbar.xul	chrome://quicklaunch/skin/quicklaunch.css
 overlay	chrome://browser/content/browser.xul	chrome://quicklaunch/content/quicklaunch.xul
@@ -15,3 +12,15 @@ overlay	chrome://browser/content/browser.xul	chrome://quicklaunch/content/quickl
 locale quicklaunch zh-TW locale/zh-TW/
 locale quicklaunch zh-CN locale/zh-CN/
 locale quicklaunch en-US locale/en-US/
+
+locale quicklaunch-os zh-TW locale/default/
+locale quicklaunch-os zh-CN locale/zh-CN/
+locale quicklaunch-os en-US locale/default/
+
+locale quicklaunch-os zh-TW locale/default/linux/ os=Linux
+locale quicklaunch-os zh-CN locale/zh-CN/linux/ os=Linux
+locale quicklaunch-os en-US locale/default/linux/ os=Linux
+
+locale quicklaunch-os zh-TW locale/default/mac/ os=Darwin
+locale quicklaunch-os zh-CN locale/zh-CN/mac/ os=Darwin
+locale quicklaunch-os en-US locale/default/mac/ os=Darwin
