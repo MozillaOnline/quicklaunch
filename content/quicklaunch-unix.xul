@@ -11,9 +11,14 @@
   <panelmultiview id="PanelUI-multiView" mainViewId="PanelUI-mainView">
     <panelview id="quicklaunch-PanelUI-View" flex="1">
       <label value="&quicklaunch-label;" class="panel-subview-header"/>
+      <toolbarbutton id="quicklaunch-paintWebpage-button" label="&quicklaunch-paintWebpage;" class="subviewbutton" hidden="true" image="chrome://quicklaunch/skin/image/paintWebpage.png" oncommand="ceQuickLaunch.getScreenShot();"/>
       <toolbarbutton label="&quicklaunch-switchProfile;" class="subviewbutton" image="chrome://quicklaunch/skin/image/switchProfile.png" oncommand="ceQuickLaunch.toProfileManager();"/>
     </panelview>
   </panelmultiview>
+
+  <stringbundleset>
+    <stringbundle id="quicklaunchStrings" src="chrome://quicklaunch/locale/quicklaunch.properties"/>
+  </stringbundleset>
 
   <script type="application/x-javascript" src="chrome://quicklaunch/content/quicklaunch.js" ></script>
 

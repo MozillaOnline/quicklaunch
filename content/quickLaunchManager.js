@@ -3,6 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 Components.utils.import('resource://quicklaunch/quicklaunch.jsm');
+
 function StartUp() {
   renewDialog();
   DoEnabling();
@@ -59,6 +60,11 @@ function renewDialog() {
               mDBConn.lastErrorString);
   } finally {
     statement.reset();
+  }
+
+  // Show screen capture button from default list if zh-CN.
+  if (quicklaunchModule.getLocale() == 'zh-CN') {
+    document.getElementById("default_paintWebpage").hidden = false;
   }
 
   for(let i=0; i < selectArray.length; i++) {

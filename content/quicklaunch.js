@@ -122,9 +122,111 @@ var ceQuickLaunch = {
     // that was returned in the param block.
   },
 
+  getScreenShot: function() {
+    function runProc(relPath,args){
+      try{
+        var file = Cc["@mozilla.org/file/local;1"].createInstance(Ci.nsILocalFile);
+        file.initWithPath(relPath);
+        var process=Cc['@mozilla.org/process/util;1'].createInstance(Ci.nsIProcess);
+        process.init(file);
+        process.runw(false, args, args.length);
+      }catch(e){alert(e);}
+    }
+
+    function printScreen() {
+      var mainwin = document.getElementById("main-window");
+      if (!mainwin.getAttribute("xmlns:html"))
+          mainwin.setAttribute("xmlns:html", "http://www.w3.org/1999/xhtml");
+
+      var content = window.content;
+        if (content.document instanceof XULDocument) {
+            var insideBrowser = content.document.querySelector('browser');
+            content = insideBrowser ? insideBrowser.contentWindow : content;
+        }
+      var desth = content.innerHeight + content.scrollMaxY;
+      var destw = content.innerWidth + content.scrollMaxX;
+
+      // Unfortunately there is a limit:
+      if (desth > 16384) desth = 16384;
+
+      var canvas = document.createElementNS("http://www.w3.org/1999/xhtml", "html:canvas");
+      var ctx = canvas.getContext("2d");
+
+      canvas.height = desth;
+      canvas.width = destw;
+      ctx.clearRect(0, 0, destw, desth);
+        ctx.save();
+      ctx.drawWindow(content, 0, 0, destw, desth, "rgb(255,255,255)");
+      return canvas.toDataURL("image/png", "");
+    }
+    function iso8601FromDate(date, punctuation) {
+      var string = date.getFullYear().toString();
+      if (punctuation) {
+        string += "-";
+      }
+      string += (date.getMonth() + 1).toString().replace(/\b(\d)\b/g, '0$1');
+      if (punctuation) {
+        string += "-";
+      }
+      string += date.getDate().toString().replace(/\b(\d)\b/g, '0$1');
+      if (1 || date.time) {
+  //      string += "T";
+        string += date.getHours().toString().replace(/\b(\d)\b/g, '0$1');
+        if (punctuation) {
+          string += ":";
+        }
+        string += date.getMinutes().toString().replace(/\b(\d)\b/g, '0$1');
+        if (punctuation) {
+          string += ":";
+        }
+        string += date.getSeconds().toString().replace(/\b(\d)\b/g, '0$1');
+        if (date.getMilliseconds() > 0) {
+          if (punctuation) {
+            string += ".";
+          }
+          string += date.getMilliseconds().toString();
+        }
+      }
+      return string;
+    }
+    var _stringBundle = document.getElementById("quicklaunchStrings");
+    var data = printScreen();
+    var file = Cc["@mozilla.org/file/directory_service;1"]
+                         .getService(Ci.nsIProperties)
+                         .get("Desk", Ci.nsIFile);
+    var filename = _stringBundle.getFormattedString("quicklaunch-screenShotFile",[iso8601FromDate(new Date()) + ".png"]);
+    file.append(filename);
+    file.createUnique(Ci.nsIFile.NORMAL_FILE_TYPE, parseInt('0666', 8));
+
+    var io = Cc["@mozilla.org/network/io-service;1"]
+                  .getService(Ci.nsIIOService);
+    var source = io.newURI(data, "UTF8", null);
+    var target = io.newFileURI(file)
+    // prepare to save the canvas data
+    var persist = Cc["@mozilla.org/embedding/browser/nsWebBrowserPersist;1"]
+                            .createInstance(Ci.nsIWebBrowserPersist);
+
+    persist.persistFlags = Ci.nsIWebBrowserPersist.PERSIST_FLAGS_REPLACE_EXISTING_FILES;
+    persist.persistFlags |= Ci.nsIWebBrowserPersist.PERSIST_FLAGS_AUTODETECT_APPLY_CONVERSION;
+    // save the canvas data to the file
+    persist.saveURI(source, null, null, null, null, file, null);
+    if (Services.appinfo.OS == "WINNT"){
+      var winDir = Cc["@mozilla.org/file/directory_service;1"].
+        getService(Ci.nsIProperties).get("WinD", Ci.nsILocalFile);
+      runProc(winDir.path + "\\system32\\mspaint.exe",[file.path]);
+    } else if (Services.appinfo.OS == "Darwin") {
+      runProc("/usr/bin/open", ['-a', 'Preview', file.path]);
+    } else {
+      var message = _stringBundle.getFormattedString("quicklaunch-screenShotSaved",[file.path]);
+      alert(message)
+    }
+  },
+
   rebuild_addonbar: function() {
+    var isWin = Services.appinfo.OS == "WINNT";
+    var isCN = quicklaunchModule.getLocale() == 'zh-CN';
     var strbundle = document.getElementById("quicklaunchStrings");
-    if (Services.appinfo.OS == "WINNT") {
+    if (isWin) {
       // recreate these widgets for every call
       var widgets = CustomizableUI.getWidgetsInArea(CustomizableUI.AREA_NAVBAR);
       widgets.forEach(function(aWidget) {
@@ -155,6 +257,11 @@ var ceQuickLaunch = {
       }
     }
 
+    // Show screen capture menu item from xul if zh-CN.
+    if (isCN) {
+      document.getElementById('quicklaunch-paintWebpage-button').hidden = false;
+    }
+
     // create the main button only if not existed yet
     var id = "quickluanch-addonbar-item";
     var area = CustomizableUI.AREA_PANEL;
@@ -164,7 +271,11 @@ var ceQuickLaunch = {
       return;
     }
 
-    if (Services.appinfo.OS == "WINNT") {
+    /*
+     * On windows there is a long list of default menu items.
+     * If zh-CN there is screen capture menu item.
+     */
+    if (isWin || isCN) {
       var prefKey = "extensions.quicklaunch@mozillaonline.com.ff4_version";
       if (Services.prefs.prefHasUserValue(prefKey)) {
         var migrationListener = {
@@ -197,7 +308,8 @@ var ceQuickLaunch = {
         });
     } else {
       CustomizableUI.createWidget(
-        { id : id,
+        {
+          id : id,
           type : "button",
           defaultArea : area,
           label : strbundle.getString("quicklaunch-label"),
@@ -216,9 +328,6 @@ var ceQuickLaunch = {
   },
 
   buildButton: function(buttonID) {
-    if (buttonID == "paintWebpage") // remove paintWebpage
-      return null;
-
     var strbundle = document.getElementById("quicklaunchStrings");
     if (isNaN(buttonID)) {
       if (["notepad", "mspaint", "calc", "myComputer",
@@ -260,6 +369,9 @@ var ceQuickLaunch = {
                   break;
                 case "myComputer":
                   win.ceQuickLaunch.runProcInWinD('explorer.exe',['::{20d04fe0-3aea-1069-a2d8-08002b30309d}']);
+                  break;
+                case "paintWebpage":
+                  win.ceQuickLaunch.getScreenShot();
                   break;
                 case "switchProfile":
                   win.ceQuickLaunch.toProfileManager();

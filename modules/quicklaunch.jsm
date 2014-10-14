@@ -4,8 +4,20 @@
 
 var EXPORTED_SYMBOLS = ['quicklaunchModule'];
 
-var Application = Components.classes["@mozilla.org/fuel/application;1"]
-                            .getService(Components.interfaces.fuelIApplication);
+const {classes: Cc, interfaces: Ci, utils: Cu, results: Cr} = Components;
+
+if (typeof XPCOMUtils == 'undefined') {
+  Cu.import('resource://gre/modules/XPCOMUtils.jsm');
+}
+
+XPCOMUtils.defineLazyModuleGetter(this, 'Services',
+  'resource://gre/modules/Services.jsm');
+
+var Application = Cc["@mozilla.org/fuel/application;1"]
+                    .getService(Ci.fuelIApplication);
+
+const PREF_MATCH_OS_LOCALE = "intl.locale.matchOS";
+const PREF_SELECTED_LOCALE = "general.useragent.locale";
 
 var debug = false;
 function log(msg) {
@@ -105,6 +117,28 @@ var quicklaunchModule = {
     }
 
     return false;
+  },
+
+  getLocale: function() {
+    try {
+      if (Services.prefs.getBoolPref(PREF_MATCH_OS_LOCALE)) {
+        return Services.locale.getLocaleComponentForUserAgent();
+      }
+    } catch (e) {}
+
+    try {
+      let locale = Services.prefs.getComplexValue(PREF_SELECTED_LOCALE,
+                                                  Ci.nsIPrefLocalizedString);
+      if (locale) {
+        return locale;
+      }
+    } catch (e) {}
+
+    try {
+      return Services.prefs.getCharPref(PREF_SELECTED_LOCALE);
+    } catch (e) {}
+
+    return 'en-US';
   }
 };
 

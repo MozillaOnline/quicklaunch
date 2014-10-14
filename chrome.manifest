@@ -6,8 +6,8 @@ skin	quicklaunch	classic/1.0	skin/
 style 	chrome://global/content/customizeToolbar.xul	chrome://quicklaunch/skin/quicklaunch.css
 overlay	chrome://browser/content/browser.xul	chrome://quicklaunch/content/quicklaunch.xul
 
-#override chrome://quicklaunch/content/quicklaunch.xul chrome://quicklaunch/content/quicklaunch-unix.xul os=Linux
-#override chrome://quicklaunch/content/quicklaunch.xul chrome://quicklaunch/content/quicklaunch-unix.xul os=Darwin
+override chrome://quicklaunch/content/quicklaunch.xul chrome://quicklaunch/content/quicklaunch-unix.xul os=Linux
+override chrome://quicklaunch/content/quicklaunch.xul chrome://quicklaunch/content/quicklaunch-unix.xul os=Darwin
 
 locale quicklaunch zh-TW locale/zh-TW/
 locale quicklaunch zh-CN locale/zh-CN/
