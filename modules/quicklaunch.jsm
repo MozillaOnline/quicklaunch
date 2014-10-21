@@ -120,25 +120,8 @@ var quicklaunchModule = {
   },
 
   getLocale: function() {
-    try {
-      if (Services.prefs.getBoolPref(PREF_MATCH_OS_LOCALE)) {
-        return Services.locale.getLocaleComponentForUserAgent();
-      }
-    } catch (e) {}
-
-    try {
-      let locale = Services.prefs.getComplexValue(PREF_SELECTED_LOCALE,
-                                                  Ci.nsIPrefLocalizedString);
-      if (locale) {
-        return locale;
-      }
-    } catch (e) {}
-
-    try {
-      return Services.prefs.getCharPref(PREF_SELECTED_LOCALE);
-    } catch (e) {}
-
-    return 'en-US';
+    return Cc["@mozilla.org/chrome/chrome-registry;1"]
+             .getService(Ci.nsIXULChromeRegistry)
+             .getSelectedLocale('quicklaunch');
   }
 };
-
