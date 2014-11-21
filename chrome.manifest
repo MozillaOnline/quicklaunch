@@ -24,3 +24,7 @@ locale quicklaunch-os en-US locale/default/linux/ os=Linux
 locale quicklaunch-os zh-TW locale/default/mac/ os=Darwin
 locale quicklaunch-os zh-CN locale/zh-CN/mac/ os=Darwin
 locale quicklaunch-os en-US locale/default/mac/ os=Darwin
+
+locale quicklaunch-os zh-TW locale/default/mac/yosemite/ os=Darwin osversion>=10.10
+locale quicklaunch-os zh-CN locale/zh-CN/mac/yosemite/ os=Darwin osversion>=10.10
+locale quicklaunch-os en-US locale/default/mac/yosemite/ os=Darwin osversion>=10.10
