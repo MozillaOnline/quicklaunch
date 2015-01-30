@@ -210,7 +210,7 @@ var ceQuickLaunch = {
     persist.persistFlags |= Ci.nsIWebBrowserPersist.PERSIST_FLAGS_AUTODETECT_APPLY_CONVERSION;
     // save the canvas data to the file
     var policy = Ci.nsIHttpChannel.REFERRER_POLICY_NO_REFERRER;
-    if (isNaN(policy)) {
+    if (!isNaN(policy)) {
       // extra referer policy required since Fx 36 <https://bugzil.la/704320>
       persist.saveURI(source, null, null, policy, null, null, file, null);
     } else {
