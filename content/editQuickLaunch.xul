@@ -24,6 +24,10 @@
 
   <script type="application/x-javascript" src="chrome://quicklaunch/content/editQuickLaunch.js"/>
 
+  <stringbundleset>
+    <stringbundle id="quicklaunchStrings" src="chrome://quicklaunch/locale/quicklaunch.properties"/>
+  </stringbundleset>
+
   <dialogheader class="header-large" id="edit-header" title="&quickLaunchEdit.label;" description="&quickLaunchEdit.description;"/>
 
   <vbox>

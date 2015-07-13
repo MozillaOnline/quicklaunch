@@ -33,7 +33,8 @@ function openFilePicker(event) {
 
   var fp = Components.classes["@mozilla.org/filepicker;1"]
            .createInstance(nsIFilePicker);
-  fp.init(window, "Dialog Title", nsIFilePicker.modeOpen);
+  var title = document.getElementById("quicklaunchStrings").getString("quicklaunch-browser");
+  fp.init(window, title, nsIFilePicker.modeOpen);
   if (document.getElementById("path").value != null && document.getElementById("path").value != "") {
     var defaultFile = Components.classes["@mozilla.org/file/local;1"]
                         .createInstance(Components.interfaces.nsILocalFile);
