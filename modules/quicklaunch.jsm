@@ -13,9 +13,6 @@ if (typeof XPCOMUtils == 'undefined') {
 XPCOMUtils.defineLazyModuleGetter(this, 'Services',
   'resource://gre/modules/Services.jsm');
 
-var Application = Cc["@mozilla.org/fuel/application;1"]
-                    .getService(Ci.fuelIApplication);
-
 const PREF_MATCH_OS_LOCALE = "intl.locale.matchOS";
 const PREF_SELECTED_LOCALE = "general.useragent.locale";
 
@@ -33,9 +30,8 @@ function log(msg) {
 
 function quicklaunch_setPrefValue(prefName, value) {
   try {
-    var prefs = Application.prefs;
     var name = "extensions.quicklaunch@mozillaonline.com." + prefName;
-    return prefs.setValue(name, value);
+    return quicklaunchModule.prefs.setValue(name, value);
   } catch(e) {
     Components.utils.reportError(e);
   }
@@ -43,15 +39,32 @@ function quicklaunch_setPrefValue(prefName, value) {
 
 function quicklaunch_getPrefValue(prefName, defValue) {
   try {
-    var prefs = Application.prefs;
     var name = "extensions.quicklaunch@mozillaonline.com." + prefName;
-    return prefs.getValue(name, defValue);
+    return quicklaunchModule.prefs.getValue(name, defValue);
   } catch (e) {
     Components.utils.reportError(e);
   }
 }
 
 var quicklaunchModule = {
+  get prefs() {
+    delete this.prefs;
+    try {
+      Cu.import("resource://gre/modules/Preferences.jsm");
+      return this.prefs = {
+        getValue: function(aName, aValue) {
+          return Preferences.get(aName, aValue);
+        },
+        setValue: function(aName, aValue) {
+          return Preferences.set(aName, aValue);
+        }
+      }
+    } catch(ex) {
+      return this.prefs = Cc["@mozilla.org/fuel/application;1"].
+        getService(Ci.fuelIApplication).prefs;
+    }
+  },
+
   initDatabase: function() {
     if (this.createDatabase()) {
       return;

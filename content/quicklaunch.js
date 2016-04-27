@@ -24,9 +24,8 @@ var ceQuickLaunch = {
 
   setPrefValue: function(prefName, value) {
     try {
-      var prefs = Application.prefs;
       var name = "extensions.quicklaunch@mozillaonline.com." + prefName;
-      return prefs.setValue(name, value);
+      return this.prefs.setValue(name, value);
     } catch(e) {
       Components.utils.reportError(e);
     }
@@ -34,15 +33,15 @@ var ceQuickLaunch = {
 
   getPrefValue: function(prefName, defValue) {
     try {
-      var prefs = Application.prefs;
       var name = "extensions.quicklaunch@mozillaonline.com." + prefName;
-      return prefs.getValue(name, defValue);
+      return this.prefs.getValue(name, defValue);
     } catch (e) {
       Components.utils.reportError(e);
     }
   },
 
-  init: function() {
+  init: function(prefsModule) {
+    this.prefs = prefsModule.prefs;
     try {
       this.rebuild_addonbar();
     } catch (e) {
@@ -533,7 +532,7 @@ var ceQuickLaunch = {
 
   onLoad: function() {
     Components.utils.import('resource://quicklaunch/quicklaunch.jsm');
-    this.init();
+    this.init(quicklaunchModule);
     // upgrade database, if upgraded, then rebuid the quicklaunch menu.
     quicklaunchModule.upgradeDB();
     var pref = Components.classes["@mozilla.org/preferences-service;1"]
@@ -552,4 +551,3 @@ var ceQuickLaunch = {
 
 window.addEventListener("load", ceQuickLaunch, false);
 window.addEventListener('unload', ceQuickLaunch, false);
-

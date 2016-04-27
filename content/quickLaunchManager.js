@@ -132,9 +132,8 @@ function QC_selectTab(aSelTab) {
 
 function quicklaunch_setPrefValue(prefName, value) {
   try {
-    var prefs = Application.prefs;
     var name = "extensions.quicklaunch@mozillaonline.com." + prefName;
-    return prefs.setValue(name, value);
+    return quicklaunchModule.prefs.setValue(name, value);
   } catch(e) {
     Components.utils.reportError(e);
   }
@@ -142,9 +141,8 @@ function quicklaunch_setPrefValue(prefName, value) {
 
 function quicklaunch_getPrefValue(prefName, defValue) {
   try {
-    var prefs = Application.prefs;
     var name = "extensions.quicklaunch@mozillaonline.com." + prefName;
-    return prefs.getValue(name, defValue);
+    return quicklaunchModule.prefs.getValue(name, defValue);
   } catch (e) {
     Components.utils.reportError(e);
   }
@@ -244,7 +242,6 @@ function DoEnabling() {
 
 function editQuickLaunch() {
   var tree = document.getElementById("quicklaunch-tree");
-  Application.console.log(tree.currentIndex);
   var id = tree.view.getCellText(tree.currentIndex, tree.columns.getColumnAt(4));
   var isChecked = false;
 
@@ -325,4 +322,3 @@ function HandleClickEvent(aEvent) {
 
   return false;
 }
-
