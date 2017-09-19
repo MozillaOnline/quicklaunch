@@ -21,39 +21,30 @@
 <body>
 <div class="panel">
     <div class="panel-section panel-section-list">
-        <div class="panel-list-item" chaz-action="openNotepad">
-            <div class="icon"><img src="/images/skin/notepad.png" /></div>
-            <div class="text" chaz-i18n="popup__notepad"></div>
-        </div>
-        <div class="panel-list-item">
-            <div class="icon"><img src="/images/skin/mspaint.png" /></div>
-            <div class="text" chaz-i18n="popup__mspaint"></div>
-        </div>
-        <div class="panel-list-item">
-            <div class="icon"><img src="/images/skin/calc.png" /></div>
-            <div class="text" chaz-i18n="popup__calc"></div>
-        </div>
-        <div class="panel-list-item">
-            <div class="icon"><img src="/images/skin/myComputer.png" /></div>
-            <div class="text" chaz-i18n="popup__myComputer"></div>
-        </div>
-        <div class="panel-list-item">
-            <div class="icon"><img src="/images/skin/paintWebpage.png" /></div>
-            <div class="text" chaz-i18n="popup__paintWebpage"></div>
-        </div>
-        <div class="panel-list-item">
-            <div class="icon"><img src="/images/skin/switchProfile.png" /></div>
-            <div class="text" chaz-i18n="popup__switchProfile"></div>
+        <div
+                v-for="item in mainList"
+                @click="item.action"
+                class="panel-list-item"
+        >
+            <div class="icon"><img :src="item.icon" /></div>
+            <div class="text" v-text="i18n(item.i18n)"></div>
         </div>
     </div>
-    <div class="panel-section-separator"></div>
-    <div class="panel-section panel-section-list">
-        <div class="panel-list-item">
-            <div class="icon"><img src="/images/skin/customizmyql.png" /></div>
-            <div class="text" chaz-i18n="popup__manageQuickLaunch"></div>
+    <template v-for="list in additionalList">
+        <div class="panel-section-separator"></div>
+        <div class="panel-section panel-section-list">
+            <div
+                    v-for="item in list"
+                    @click="item.action"
+                    class="panel-list-item"
+            >
+                <div class="icon"><img :src="item.icon" /></div>
+                <div class="text" v-text="i18n(item.i18n)"></div>
+            </div>
         </div>
-    </div>
-    <script src="popup.js"></script>
+    </template>
 </div>
+<script src="vue-1-0-28-csp.js"></script>
+<script src="popup.js"></script>
 </body>
 </html>
